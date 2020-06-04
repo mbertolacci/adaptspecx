@@ -6,7 +6,7 @@ The code has been tested on Ubuntu 18.04 and macOS 10.13. It may work on other s
 
 First, you need to install the following packages in R:
 
-```
+```r
 # Install from CRAN
 install.packages(c(
   'RSQLite', 'RSpectra', 'Rcpp', 'RcppEigen', 'argparse', 'assist', 'coda',
