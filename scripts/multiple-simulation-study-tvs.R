@@ -93,7 +93,7 @@ plot_tvs <- function(data) {
     ) +
     theme(
       axis.text.y = element_text(size = rel(0.75)),
-      strip.text = element_text(size = rel(0.6))
+      strip.text = element_text(size = rel(0.5))
     )
 }
 
@@ -102,7 +102,7 @@ test_point_plot <- plot_tvs(tvs_df %>% filter(label %in% test_points))
 legend <- get_legend(test_point_plot)
 
 plot_width <- display_settings$full_page_plot_width
-plot_height <- (10 / 16) * display_settings$full_page_plot_width
+plot_height <- (7.5 / 16) * display_settings$full_page_plot_width
 legend_width <- 2.5
 y_axis_label_width <- 0.5
 x_axis_label_height <- 0.8

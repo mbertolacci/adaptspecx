@@ -1,7 +1,7 @@
 source('scripts/partials/base.R')
 source('scripts/partials/display-settings.R')
 source('scripts/partials/measles.R')
-suppressPackageStartupMessages(devtools::load_all('BayesSpec'))
+suppressPackageStartupMessages(library(BayesSpec))
 library(dplyr, warn.conflicts = FALSE)
 library(futile.logger)
 library(lubridate, warn.conflicts = FALSE)

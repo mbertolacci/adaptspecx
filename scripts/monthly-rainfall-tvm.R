@@ -118,7 +118,7 @@ ggsave(
   args$output,
   output,
   width = if (args$all) 60 else display_settings$full_page_plot_width,
-  height = if (args$all) 40 else 10,
+  height = if (args$all) 40 else 8.5,
   dpi = display_settings$png_plot_dpi,
   units = 'cm'
 )

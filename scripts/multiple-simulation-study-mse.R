@@ -14,20 +14,22 @@ metadata <- readRDS(args$metadata)
 tvm <- readRDS(args$tvm)
 tvs <- readRDS(args$tvs)
 
+n_time_series <- dim(tvm[[1]])[2]
+
 tvm_true <- tvm_piecewise_ar_category(
   settings$components,
   c(1 : 4, 1 : 4),
   settings$n_times
-)
+)[, seq_len(n_time_series)]
 
 tvs_true <- tvs_piecewise_ar_category(
   settings$components,
   c(1 : 4, 1 : 4),
   settings$tvs_n_frequencies,
   settings$n_times
-)
+)[, , seq_len(n_time_series)]
 
-column_names <- c(paste0('D', 1 : 4), paste0('T', 1 : 4))
+column_names <- c(paste0('D', 1 : 4), paste0('T', 1 : 4))[seq_len(n_time_series)]
 
 mse_tvm <- t(sapply(tvm, function(tvm_i) {
   colMeans((tvm_i - tvm_true) ^ 2)

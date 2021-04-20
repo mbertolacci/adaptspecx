@@ -58,7 +58,7 @@ monthly_rainfall_settings <- list(
   tvs_time_step = 5,
   diagnostics_thin = 100,
   clustering_thin = 100,
-  test_thin = 5,
+  test_thin = 10,
   test_n_frequencies = 2 ^ 8
 )
 

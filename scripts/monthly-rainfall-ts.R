@@ -69,7 +69,7 @@ output <- ggplot(mapping = aes(date)) +
 ggsave(
   args$output,
   output,
-  width = if (args$all) 32 else display_settings$full_page_plot_width,
+  width = if (args$all) 32 else display_settings$full_page_plot_width - 2,
   height = if (args$all) 65 else 0.5 * display_settings$full_page_plot_width,
   units = 'cm'
 )

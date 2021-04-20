@@ -124,7 +124,7 @@ ggsave(
     ) +
     scale_fill_manual(values = wesanderson::wes_palette('Moonrise3', 4)[c(1, 3, 2, 4)]) +
     coord_fixed() +
-    labs(x = expression(u[1]), y = expression(u[2]), fill = expression(z[j]*' =')) +
+    labs(x = expression(u[1]), y = expression(u[2]), fill = expression(r[j]*' =')) +
     theme(
       legend.position = 'top'
     ),

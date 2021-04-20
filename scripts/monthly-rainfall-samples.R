@@ -1,6 +1,6 @@
 source('scripts/partials/base.R')
 source('scripts/partials/monthly-rainfall.R')
-suppressPackageStartupMessages(devtools::load_all('BayesSpec'))
+suppressPackageStartupMessages(library(BayesSpec))
 library(dplyr, warn.conflicts = FALSE)
 suppressWarnings(library(lubridate, warn.conflicts = FALSE))
 library(tidyr)
@@ -98,7 +98,8 @@ samples <- adaptspec_lsbp_mixture(
     use_hessian_curvature = FALSE
   ),
   thin = list(
-    x_missing = 100
+    x_missing = 100,
+    beta = 10
   ),
   detrend = FALSE,
   run_diagnostics = FALSE,

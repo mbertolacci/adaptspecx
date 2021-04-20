@@ -1,7 +1,0 @@
-autom4te.cache
-config.log
-config.status
-*.o
-*.so
-*.dll
-src/Makevars

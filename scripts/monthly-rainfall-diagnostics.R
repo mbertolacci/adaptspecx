@@ -1,6 +1,6 @@
 source('scripts/partials/monthly-rainfall.R')
 source('scripts/partials/base.R')
-suppressPackageStartupMessages(devtools::load_all('BayesSpec'))
+suppressPackageStartupMessages(library(BayesSpec))
 
 parser$add_argument('--samples')
 args <- parser$parse_args()

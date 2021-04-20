@@ -1,6 +1,6 @@
 source('scripts/partials/base.R')
 source('scripts/partials/measles.R')
-suppressPackageStartupMessages(devtools::load_all('BayesSpec'))
+suppressPackageStartupMessages(library(BayesSpec))
 library(dplyr, warn.conflicts = FALSE)
 library(tidyr)
 library(futile.logger)
@@ -78,7 +78,8 @@ samples <- adaptspec_lsbp_mixture(
     use_hessian_curvature = FALSE
   ),
   thin = list(
-    x_missing = 100
+    x_missing = 100,
+    beta = 5
   ),
   run_diagnostics = FALSE,
   show_progress = TRUE

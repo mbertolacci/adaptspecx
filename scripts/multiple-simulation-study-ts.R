@@ -25,7 +25,7 @@ example_data <- do.call(rbind, lapply(seq_along(metadata$example_indices), funct
     mu = tvm_true[, i],
     x = replicate1[, index],
     is_missing = is.na(replicate1[, index]),
-    category = sprintf('z[%s]*" = "*%d', SITE_INDEX, metadata$category[index]),
+    category = sprintf('r[%s]*" = "*%d', SITE_INDEX, metadata$category[index]),
     stringsAsFactors = FALSE
   )
 }))

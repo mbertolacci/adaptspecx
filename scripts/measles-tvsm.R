@@ -1,6 +1,6 @@
 source('scripts/partials/base.R')
 source('scripts/partials/measles.R')
-suppressPackageStartupMessages(devtools::load_all('BayesSpec'))
+suppressPackageStartupMessages(library(BayesSpec))
 library(dplyr, warn.conflicts = FALSE)
 library(futile.logger)
 
@@ -19,6 +19,7 @@ metadata <- readRDS(args$metadata) %>%
 
 flog.info('Loading and merging samples')
 samples <- merge_samples(lapply(args$samples, function(filename) {
+  flog.info('Loading %s', filename)
   window(
     readRDS(filename),
     start = measles_settings$warm_up + 1,

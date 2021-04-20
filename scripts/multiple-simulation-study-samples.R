@@ -1,7 +1,7 @@
 source('scripts/partials/base.R')
 source('scripts/partials/multiple-simulation-study.R')
 library(futile.logger)
-suppressPackageStartupMessages(devtools::load_all('BayesSpec'))
+suppressPackageStartupMessages(library(BayesSpec))
 
 parser$add_argument('--metadata')
 parser$add_argument('--replicates')

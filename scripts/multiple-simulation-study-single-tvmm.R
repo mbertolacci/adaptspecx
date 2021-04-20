@@ -11,32 +11,17 @@ args <- parser$parse_args()
 flog.info('Loading metadata')
 metadata <- readRDS(args$metadata)
 
-n_cores <- detectCores()
-flog.info('Running on %d cores', n_cores)
-
-output <- mclapply(1 : settings$n_replicates, function(index) {
+output <- lapply(1 : settings$n_replicates, function(index) {
   flog.info('[%d/%d] Loading samples', index, settings$n_replicates)
-  samples_i <- window(
+  samples_i <- lapply(
     readRDS(file.path(args$samples_directory, sprintf('samples-%d.rds', index))),
+    window,
     start = settings$warm_up + 1,
     thin = settings$tvm_thin
   )
 
-  flog.info('[%d/%d] Calculating TVM', index, settings$n_replicates)
-  samples_subset <- samples_i
-  samples_subset$design_matrix <- samples_subset$design_matrix[
-    c(metadata$example_indices, (settings$n_time_series + 1) : nrow(metadata$design_matrix)),
-  ]
-
-  time_varying_mean_mean(samples_subset, from = 'probabilities')
-}, mc.cores = n_cores)
-
-for (result in output) {
-  if (inherits(result, 'try-error')) {
-    print(result)
-    stop('error')
-  }
-}
+  simplify2array(lapply(samples_i, time_varying_mean_mean))
+})
 
 flog.info('Saving to %s', args$output)
 saveRDS(output, args$output)
