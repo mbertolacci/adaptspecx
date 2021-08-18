@@ -56,7 +56,7 @@ flog.info('Scaling design matrix')
 design_matrix <- scale(design_matrix)
 
 flog.info('Running sampler')
-samples <- adaptspec_lsbp_mixture(
+samples <- adaptspecx(
   n_loop = monthly_rainfall_settings$n_iterations,
   n_warm_up = 0,
   data = observations_wide,
@@ -74,9 +74,6 @@ samples <- adaptspec_lsbp_mixture(
     mu_lower = monthly_rainfall_settings$mu_lower,
     mu_upper = monthly_rainfall_settings$mu_upper
   ),
-  spline_prior = list(
-    n_bases = monthly_rainfall_settings$n_spline_bases
-  ),
   mixture_prior = list(
     tau_prior_nu = monthly_rainfall_settings$tau_prior_nu,
     tau_prior_a_squared = monthly_rainfall_settings$tau_prior_a_squared,
@@ -85,9 +82,10 @@ samples <- adaptspec_lsbp_mixture(
       monthly_rainfall_settings$spline_precision_prior,
       nrow = 3 + monthly_rainfall_settings$n_spline_bases,
       ncol = monthly_rainfall_settings$n_components - 1
-    )
+    ),
+    n_bases = monthly_rainfall_settings$n_spline_bases
   ),
-  component_tuning = list(
+  component_tuning = adaptspec_tuning(
     short_moves = monthly_rainfall_settings$short_moves,
     short_move_weights = dnorm(
       monthly_rainfall_settings$short_moves,

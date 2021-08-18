@@ -28,7 +28,7 @@ rm(configurations)
 gc()
 
 log_info('Starting sampler')
-samples <- adaptspec_lsbp_mixture(
+samples <- adaptspecx(
   n_loop = cabs_study_settings$n_loop,
   n_warm_up = 0,
   data = data,
@@ -44,9 +44,6 @@ samples <- adaptspec_lsbp_mixture(
     tau_upper_limit = 10000,
     segment_means = FALSE
   ),
-  spline_prior = list(
-    n_bases = cabs_study_settings$n_spline_bases
-  ),
   mixture_prior = list(
     tau_prior_nu = 3,
     tau_prior_a_squared = 100,
@@ -55,9 +52,10 @@ samples <- adaptspec_lsbp_mixture(
       1 / 100,
       nrow = 1 + ncol(design_matrix) + cabs_study_settings$n_spline_bases,
       ncol = cabs_study_settings$n_components - 1
-    )
+    ),
+    n_bases = cabs_study_settings$n_spline_bases
   ),
-  component_tuning = list(
+  component_tuning = adaptspec_tuning(
     short_moves = c(-4 : -1, 1 : 4),
     short_move_weights = dnorm(
       c(-4 : -1, 1 : 4),

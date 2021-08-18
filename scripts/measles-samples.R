@@ -33,7 +33,7 @@ design_matrix <- metadata %>%
   scale()
 
 flog.info('Running sampler')
-samples <- adaptspec_lsbp_mixture(
+samples <- adaptspecx(
   n_loop = measles_settings$n_iterations,
   n_warm_up = 0,
   data = observations_matrix,
@@ -55,9 +55,6 @@ samples <- adaptspec_lsbp_mixture(
   lsbp_tuning = list(
     n_swap_moves = 1
   ),
-  spline_prior = list(
-    n_bases = measles_settings$n_spline_bases
-  ),
   mixture_prior = list(
     tau_prior_nu = measles_settings$tau_prior_nu,
     tau_prior_a_squared = measles_settings$tau_prior_a_squared,
@@ -65,9 +62,10 @@ samples <- adaptspec_lsbp_mixture(
       measles_settings$spline_precision_prior,
       nrow = 3 + measles_settings$n_spline_bases,
       ncol = measles_settings$n_components - 1
-    )
+    ),
+    n_bases = measles_settings$n_spline_bases
   ),
-  component_tuning = list(
+  component_tuning = adaptspec_tuning(
     short_moves = measles_settings$short_moves,
     short_move_weights = dnorm(
       measles_settings$short_moves,

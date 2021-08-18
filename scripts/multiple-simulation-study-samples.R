@@ -24,7 +24,7 @@ log_info('Loading replicates')
 replicates <- readRDS(args$replicates)
 
 log_info('Running sampler')
-samples <- adaptspec_lsbp_mixture(
+samples <- adaptspecx(
   n_loop = settings$n_iterations,
   n_warm_up = 0,
   data = replicates[[args$replicate_number]],
@@ -42,9 +42,6 @@ samples <- adaptspec_lsbp_mixture(
     mu_upper = settings$mu_upper,
     segment_means = TRUE
   ),
-  spline_prior = list(
-    n_bases = settings$n_spline_bases
-  ),
   mixture_prior = list(
     tau_prior_nu = settings$tau_prior_nu,
     tau_prior_a_squared = settings$tau_prior_a_squared,
@@ -53,9 +50,10 @@ samples <- adaptspec_lsbp_mixture(
       settings$spline_precision_prior,
       nrow = 1 + ncol(metadata$design_matrix) + settings$n_spline_bases,
       ncol = settings$n_components - 1
-    )
+    ),
+    n_bases = settings$n_spline_bases
   ),
-  component_tuning = list(
+  component_tuning = adaptspec_tuning(
     short_moves = settings$short_moves,
     short_move_weights = dnorm(
       settings$short_moves,

@@ -43,7 +43,7 @@ samples <- lapply(
       mu_lower = settings$mu_lower,
       mu_upper = settings$mu_upper,
       segment_means = TRUE,
-      tuning = list(
+      tuning = adaptspec_tuning(
         short_moves = settings$short_moves,
         short_move_weights = dnorm(
           settings$short_moves,
